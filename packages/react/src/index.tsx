@@ -1,18 +1,20 @@
 import {colors} from '@ignite-ui/tokens'
 import { styled } from './styles'
 
-export function App(){
-    const Button = styled('button', {
-        background: '$ignite500',
-        borderRadius: '$lg',
-        color: 'White',
-        padding: '$4'
+export const ButtonComponent = styled('button', {
+    background: '$black',
+    borderRadius: '$lg',
+    color: 'White',
+    padding: '$4'
 
-    })
+})
+
+export interface ButtonProps {
+    title: string
+}
+export function Button({title}:ButtonProps){
     return (
-        <div >
-            <h1 >hello myself </h1>
-            <Button>click aqui</Button>
-        </div>
+        <ButtonComponent>{title} botão </ButtonComponent>
     )
 }
+
