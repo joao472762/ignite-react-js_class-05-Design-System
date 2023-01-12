@@ -1,20 +1,43 @@
 import {colors} from '@ignite-ui/tokens'
+import { ButtonHTMLAttributes, ComponentProps, ReactNode } from 'react'
 import { styled } from './styles'
 
-export const ButtonComponent = styled('button', {
-    background: '$black',
-    borderRadius: '$lg',
+
+
+
+
+export const Button = styled('button', {
+    background: '$ignite300',
+    border: 0,
+    borderRadius: '$sm',
+
+    
+    fontFamily: '$default',
     color: 'White',
-    padding: '$4'
+    fontWeight: 'bold',
+
+
+    width: '100%',
+
+    variants: {
+        size: {
+            small: {
+                fontSize: 'small',
+                padding: '$2 $4',
+            },
+
+            big: {
+                fontSize: '$lg',
+                padding: '$2 $4',
+            }
+        }
+    },
+
+    defaultVariants: {
+        size: 'small'
+    }
 
 })
 
-export interface ButtonProps {
-    title: string
-}
-export function Button({title}:ButtonProps){
-    return (
-        <ButtonComponent>{title} botão </ButtonComponent>
-    )
-}
+export type ButtonProps = ComponentProps<typeof Button>
 

@@ -1,7 +1,10 @@
 import * as _stitches_react_types_styled_component from '@stitches/react/types/styled-component';
 import * as _stitches_react_types_css_util from '@stitches/react/types/css-util';
+import { ComponentProps } from 'react';
 
-declare const ButtonComponent: _stitches_react_types_styled_component.StyledComponent<"button", {}, {}, _stitches_react_types_css_util.CSS<{}, {
+declare const Button: _stitches_react_types_styled_component.StyledComponent<"button", {
+    size?: "big" | "small" | undefined;
+}, {}, _stitches_react_types_css_util.CSS<{}, {
     colors: {
         readonly white: "#FFF";
         readonly black: "#000";
@@ -203,9 +206,6 @@ declare const ButtonComponent: _stitches_react_types_styled_component.StyledComp
     transition: "transitions";
     zIndex: "zIndices";
 }, {}>>;
-interface ButtonProps {
-    title: string;
-}
-declare function Button({ title }: ButtonProps): JSX.Element;
+type ButtonProps = ComponentProps<typeof Button>;
 
-export { Button, ButtonComponent, ButtonProps };
+export { Button, ButtonProps };

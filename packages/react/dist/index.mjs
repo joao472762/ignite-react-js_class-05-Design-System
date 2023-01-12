@@ -120,20 +120,30 @@ var {
 });
 
 // src/index.tsx
-import { jsxs } from "react/jsx-runtime";
-var ButtonComponent = styled("button", {
-  background: "$black",
-  borderRadius: "$lg",
+var Button = styled("button", {
+  background: "$ignite300",
+  border: 0,
+  borderRadius: "$sm",
+  fontFamily: "$default",
   color: "White",
-  padding: "$4"
+  fontWeight: "bold",
+  width: "100%",
+  variants: {
+    size: {
+      small: {
+        fontSize: "small",
+        padding: "$2 $4"
+      },
+      big: {
+        fontSize: "$lg",
+        padding: "$2 $4"
+      }
+    }
+  },
+  defaultVariants: {
+    size: "small"
+  }
 });
-function Button({ title }) {
-  return /* @__PURE__ */ jsxs(ButtonComponent, { children: [
-    title,
-    " bot\xE3o "
-  ] });
-}
 export {
-  Button,
-  ButtonComponent
+  Button
 };
