@@ -140,6 +140,7 @@ var Box = styled("div", {
   padding: "$6",
   backgroundColor: "$gray800"
 });
+Box.displayName = "Box";
 
 // src/components/Button.tsx
 var Button = styled("button", {
@@ -214,6 +215,7 @@ var Button = styled("button", {
     size: "md"
   }
 });
+Button.displayName = "Button";
 
 // src/components/Text.tsx
 var Text = styled("p", {
@@ -242,6 +244,7 @@ var Text = styled("p", {
     size: "md"
   }
 });
+Text.displayName = "Text";
 
 // src/components/Heading.tsx
 var Heading = styled("h2", {
@@ -262,6 +265,7 @@ var Heading = styled("h2", {
     }
   }
 });
+Heading.displayName = "Heading";
 
 // src/components/Avatar/styles.ts
 import { Root, Fallback, Image } from "@radix-ui/react-avatar";
@@ -301,6 +305,7 @@ function Avatar(_a) {
     /* @__PURE__ */ jsx(AvatarFallback, { delayMs: 600, children: /* @__PURE__ */ jsx(User, {}) })
   ] });
 }
+Avatar.displayName = "Avatar";
 
 // src/components/TextArea.ts
 var TextArea = styled("textarea", {
@@ -327,6 +332,7 @@ var TextArea = styled("textarea", {
     opacity: 0.7
   }
 });
+TextArea.displayName = "TextArea";
 
 // src/components/TextInput/styles.ts
 var TextInputContainer = styled("div", {
@@ -381,6 +387,7 @@ function TextInput(_a) {
     /* @__PURE__ */ jsx2(Input, __spreadValues({}, rest))
   ] });
 }
+TextInput.displayName = "TextInput";
 
 // src/components/Checkbox/index.tsx
 import { Check } from "phosphor-react";
@@ -441,6 +448,7 @@ import { jsx as jsx3 } from "react/jsx-runtime";
 function Checkbox2() {
   return /* @__PURE__ */ jsx3(CheckboxContainer, { children: /* @__PURE__ */ jsx3(CheckboxIndicator, { asChild: true, children: /* @__PURE__ */ jsx3(Check, { weight: "bold" }) }) });
 }
+Checkbox2.displayName = "Checkbox";
 
 // src/components/MultiStep/styles.ts
 var MultiStepContainer = styled("div", {});
@@ -488,6 +496,7 @@ function MultiStep({ size, currentStep = 1 }) {
     /* @__PURE__ */ jsx4(Steps, { css: { "--steps-size": size }, children: Array.from({ length: size }, (_, index) => index + 1).map((step) => /* @__PURE__ */ jsx4(Step, { active: step <= currentStep }, step)) })
   ] });
 }
+MultiStep.displayName = "MultiStep";
 export {
   Avatar,
   Box,

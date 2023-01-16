@@ -17,3 +17,5 @@ export function Avatar({fallback,...rest}: AvatarProps){
     )
 }
 
+
+Avatar.displayName = "Avatar"
