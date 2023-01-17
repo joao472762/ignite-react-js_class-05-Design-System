@@ -5,12 +5,14 @@ export default {
     title: 'Typograph/Text',
     component: Text,
     args: {
-        children: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt suscipit itaque, ex minima quae tenetur dolorem vero, recusandae nulla quam dignissimos natus cumque doloribus. Libero ipsam velit perspiciatis pariatur dolorum?"
+        children: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt suscipit itaque, ex minima quae tenetur dolorem vero, recusandae nulla quam dignissimos natus cumque doloribus. Libero ipsam velit perspiciatis pariatur dolorum?",
+        size: 'md'
     },
     argTypes: {
-        children: {
-            table: {
-                disable: true
+        size: {
+            options: ['xxs','xs','sm','md','lg','xl','2xl','4xl','5xl','6xl','7xl','8xl','9xl'],
+            control: {
+                type: 'inline-radio'
             }
         }
     }

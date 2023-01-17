@@ -5,12 +5,15 @@ export default {
     title: 'Typograph/Heading',
     component: Heading,
     args: {
-        children: 'Title'
+        children: 'Title',
+        size: 'md',
     },
     argTypes: {
-        children: {
-            table: {
-                disable: true
+      
+        size: {
+            options:['sm','md','lg','2xl','3xl','4xl','5xl','6xl'],
+            control: {
+                type: 'inline-radio'
             }
         }
     }
