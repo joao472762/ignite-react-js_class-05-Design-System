@@ -16,5 +16,12 @@ module.exports = {
   },
   "features": {
     "storyStoreV7": true
+  },
+  viteFinal: (config, { configType }) => {
+    if (configType === 'PRODUCTION') {
+      config.base = '/ignite-react-js_class-05-Design-System/'
+    }
+
+    return config
   }
 }
