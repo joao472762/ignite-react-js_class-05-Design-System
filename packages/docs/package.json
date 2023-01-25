@@ -1,5 +1,5 @@
 {
-  "name": "@ignite-ui-class/docs",
+  "name": "@ignite-ui/docs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -29,9 +29,9 @@
     "vite": "^3.1.4"
   },
   "dependencies": {
-    "@ignite-ui-class/react": "*",
-    "@ignite-ui-class/tokens": "*",
-    "@ignite-ui-class/ts-config": "*",
+    "@ignite-ui/react": "*",
+    "@ignite-ui/tokens": "*",
+    "@ignite-ui/ts-config": "*",
     "@storybook/addon-a11y": "^6.5.15",
     "phosphor-react": "^1.4.1",
     "polished": "^4.2.2",
