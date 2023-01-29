@@ -58,12 +58,15 @@ __export(src_exports, {
   Avatar: () => Avatar,
   Box: () => Box,
   Button: () => Button,
+  CalendarButton: () => CalendarButton,
   Checkbox: () => Checkbox2,
+  DayCalendar: () => DayCalendar,
   Heading: () => Heading,
   MultiStep: () => MultiStep,
   Text: () => Text,
   TextArea: () => TextArea,
-  TextInput: () => TextInput
+  TextInput: () => TextInput,
+  Toast: () => Toast2
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -487,6 +490,105 @@ function Checkbox2() {
 }
 Checkbox2.displayName = "Checkbox";
 
+// src/components/Toast/index.tsx
+var import_phosphor_react3 = require("phosphor-react");
+var import_react2 = require("react");
+
+// src/components/Toast/styles.ts
+var Toast = __toESM(require("@radix-ui/react-toast"));
+var ToastProvider = styled(Toast.Provider, {});
+var ToastViewport = styled(Toast.Viewport, {
+  position: "fixed",
+  bottom: "$6",
+  right: "$6",
+  overflow: "hidden",
+  listStyle: "none"
+});
+var slideIn2 = keyframes({
+  "0%": { transform: "translateX(100%)" },
+  "100%": { transform: "translateX(0%)" }
+});
+var slideOut2 = keyframes({
+  "0%": { transform: "translateX(0%)" },
+  "100%": { transform: "translateX(100%)" }
+});
+var ToastRoot = styled(Toast.Root, {
+  width: 360,
+  backgroundColor: "$gray600",
+  padding: "$3 $5",
+  borderRadius: "$sm",
+  display: "flex",
+  justifyContent: "space-between",
+  outline: "none",
+  "&[data-state=open]": {
+    animation: `${slideIn2} 200ms cubic-bezier(0.16, 1, 0.3, 1)`
+  },
+  "&[data-state=closed]": {
+    animation: `${slideOut2} 200ms cubic-bezier(0.16, 1, 0.3, 1)`
+  }
+});
+var ToastContent = styled("div", {});
+var ToastTitle = styled(Toast.Title, {
+  fontFamily: "$default",
+  fontWeight: "bold",
+  color: "$white",
+  fontSize: "large"
+});
+var ToastDescription = styled(Toast.Description, {
+  fontFamily: "$default",
+  marginTop: "$1",
+  fontSize: "$sm",
+  color: "$gray200"
+});
+var ToastClose = styled(Toast.Close, {
+  color: "$gray200"
+});
+
+// src/components/CalendarButton.ts
+var CalendarButton = styled("button", {
+  alignItems: "center",
+  justifyContent: "center",
+  width: 66,
+  height: 58,
+  fontFamily: "$default",
+  color: "$white",
+  border: "none",
+  borderRadius: "$sm",
+  variants: {
+    isAvaliable: {
+      true: {
+        backgroundColor: "$gray600"
+      },
+      false: {
+        backgroundColor: "$gray800"
+      }
+    }
+  },
+  defaultVariants: {
+    isAvaliable: false
+  }
+});
+
+// src/components/Toast/index.tsx
+var import_jsx_runtime4 = require("react/jsx-runtime");
+function Toast2({ title, description, day }) {
+  const [toastIsVisible, setToastIsVisible] = (0, import_react2.useState)(false);
+  function handleChangeToastVisibility(isVisible) {
+    setToastIsVisible(isVisible);
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(ToastProvider, { swipeDirection: "right", duration: 4e3, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(CalendarButton, { onClick: () => handleChangeToastVisibility(true), children: day }),
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(ToastRoot, { open: toastIsVisible, onOpenChange: handleChangeToastVisibility, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(ToastContent, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ToastTitle, { children: title }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ToastDescription, { children: description })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ToastClose, { onClick: () => handleChangeToastVisibility(false), asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_phosphor_react3.X, { size: 20 }) })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ToastViewport, {})
+  ] });
+}
+
 // src/components/MultiStep/styles.ts
 var MultiStepContainer = styled("div", {});
 var Label = styled(Text, {
@@ -521,28 +623,79 @@ var Step = styled("div", {
 });
 
 // src/components/MultiStep/index.tsx
-var import_jsx_runtime4 = require("react/jsx-runtime");
+var import_jsx_runtime5 = require("react/jsx-runtime");
 function MultiStep({ size, currentStep = 1 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(MultiStepContainer, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(Label, { children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(MultiStepContainer, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(Label, { children: [
       "passo ",
       currentStep,
       " de ",
       size
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Steps, { css: { "--steps-size": size }, children: Array.from({ length: size }, (_, index) => index + 1).map((step) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Step, { active: step <= currentStep }, step)) })
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Steps, { css: { "--steps-size": size }, children: Array.from({ length: size }, (_, index) => index + 1).map((step) => /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Step, { active: step <= currentStep }, step)) })
   ] });
 }
 MultiStep.displayName = "MultiStep";
+
+// src/components/DayCalendar/index.tsx
+var import_date_fns = require("date-fns");
+var import_pt_BR = __toESM(require("date-fns/esm/locale/pt-BR/index.js"));
+var import_react_tooltip = require("@radix-ui/react-tooltip");
+
+// src/components/DayCalendar/styles.ts
+var Tooltip = __toESM(require("@radix-ui/react-tooltip"));
+var TooltipTrigger = styled(Tooltip.Trigger);
+var ToolTipProvider = styled(Tooltip.Provider);
+var ToolTipRoot = styled(Tooltip.Root);
+var ToolTipPortal = styled(Tooltip.Portal);
+var ToolTipContent = styled(Tooltip.Content, {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "$gray900",
+  fontFamily: "$default",
+  fontSize: "$md",
+  color: "$gray100",
+  borderRadius: 5,
+  minWidth: 219,
+  height: "$12"
+});
+var TooltipArrow = styled(Tooltip.Arrow, {
+  height: 10,
+  width: 10,
+  fill: "$gray900"
+});
+
+// src/components/DayCalendar/index.tsx
+var import_jsx_runtime6 = require("react/jsx-runtime");
+function DayCalendar({ date, isAvaliable }) {
+  const dateFormated = (0, import_date_fns.format)(date, "d 'de' MMMM ", {
+    locale: import_pt_BR.default
+  });
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_react_tooltip.TooltipProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(ToolTipRoot, { delayDuration: 200, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_react_tooltip.TooltipTrigger, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(CalendarButton, { isAvaliable, children: date.getDate() }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(ToolTipPortal, { children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(ToolTipContent, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { children: [
+        dateFormated,
+        " -",
+        isAvaliable ? " dispon\xEDvel" : "indispon\xEDvel"
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(TooltipArrow, {})
+    ] }) })
+  ] }) });
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Avatar,
   Box,
   Button,
+  CalendarButton,
   Checkbox,
+  DayCalendar,
   Heading,
   MultiStep,
   Text,
   TextArea,
-  TextInput
+  TextInput,
+  Toast
 });

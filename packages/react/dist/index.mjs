@@ -450,6 +450,105 @@ function Checkbox2() {
 }
 Checkbox2.displayName = "Checkbox";
 
+// src/components/Toast/index.tsx
+import { X } from "phosphor-react";
+import { useState } from "react";
+
+// src/components/Toast/styles.ts
+import * as Toast from "@radix-ui/react-toast";
+var ToastProvider = styled(Toast.Provider, {});
+var ToastViewport = styled(Toast.Viewport, {
+  position: "fixed",
+  bottom: "$6",
+  right: "$6",
+  overflow: "hidden",
+  listStyle: "none"
+});
+var slideIn2 = keyframes({
+  "0%": { transform: "translateX(100%)" },
+  "100%": { transform: "translateX(0%)" }
+});
+var slideOut2 = keyframes({
+  "0%": { transform: "translateX(0%)" },
+  "100%": { transform: "translateX(100%)" }
+});
+var ToastRoot = styled(Toast.Root, {
+  width: 360,
+  backgroundColor: "$gray600",
+  padding: "$3 $5",
+  borderRadius: "$sm",
+  display: "flex",
+  justifyContent: "space-between",
+  outline: "none",
+  "&[data-state=open]": {
+    animation: `${slideIn2} 200ms cubic-bezier(0.16, 1, 0.3, 1)`
+  },
+  "&[data-state=closed]": {
+    animation: `${slideOut2} 200ms cubic-bezier(0.16, 1, 0.3, 1)`
+  }
+});
+var ToastContent = styled("div", {});
+var ToastTitle = styled(Toast.Title, {
+  fontFamily: "$default",
+  fontWeight: "bold",
+  color: "$white",
+  fontSize: "large"
+});
+var ToastDescription = styled(Toast.Description, {
+  fontFamily: "$default",
+  marginTop: "$1",
+  fontSize: "$sm",
+  color: "$gray200"
+});
+var ToastClose = styled(Toast.Close, {
+  color: "$gray200"
+});
+
+// src/components/CalendarButton.ts
+var CalendarButton = styled("button", {
+  alignItems: "center",
+  justifyContent: "center",
+  width: 66,
+  height: 58,
+  fontFamily: "$default",
+  color: "$white",
+  border: "none",
+  borderRadius: "$sm",
+  variants: {
+    isAvaliable: {
+      true: {
+        backgroundColor: "$gray600"
+      },
+      false: {
+        backgroundColor: "$gray800"
+      }
+    }
+  },
+  defaultVariants: {
+    isAvaliable: false
+  }
+});
+
+// src/components/Toast/index.tsx
+import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
+function Toast2({ title, description, day }) {
+  const [toastIsVisible, setToastIsVisible] = useState(false);
+  function handleChangeToastVisibility(isVisible) {
+    setToastIsVisible(isVisible);
+  }
+  return /* @__PURE__ */ jsxs3(ToastProvider, { swipeDirection: "right", duration: 4e3, children: [
+    /* @__PURE__ */ jsx4(CalendarButton, { onClick: () => handleChangeToastVisibility(true), children: day }),
+    /* @__PURE__ */ jsxs3(ToastRoot, { open: toastIsVisible, onOpenChange: handleChangeToastVisibility, children: [
+      /* @__PURE__ */ jsxs3(ToastContent, { children: [
+        /* @__PURE__ */ jsx4(ToastTitle, { children: title }),
+        /* @__PURE__ */ jsx4(ToastDescription, { children: description })
+      ] }),
+      /* @__PURE__ */ jsx4(ToastClose, { onClick: () => handleChangeToastVisibility(false), asChild: true, children: /* @__PURE__ */ jsx4(X, { size: 20 }) })
+    ] }),
+    /* @__PURE__ */ jsx4(ToastViewport, {})
+  ] });
+}
+
 // src/components/MultiStep/styles.ts
 var MultiStepContainer = styled("div", {});
 var Label = styled(Text, {
@@ -484,27 +583,78 @@ var Step = styled("div", {
 });
 
 // src/components/MultiStep/index.tsx
-import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
+import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
 function MultiStep({ size, currentStep = 1 }) {
-  return /* @__PURE__ */ jsxs3(MultiStepContainer, { children: [
-    /* @__PURE__ */ jsxs3(Label, { children: [
+  return /* @__PURE__ */ jsxs4(MultiStepContainer, { children: [
+    /* @__PURE__ */ jsxs4(Label, { children: [
       "passo ",
       currentStep,
       " de ",
       size
     ] }),
-    /* @__PURE__ */ jsx4(Steps, { css: { "--steps-size": size }, children: Array.from({ length: size }, (_, index) => index + 1).map((step) => /* @__PURE__ */ jsx4(Step, { active: step <= currentStep }, step)) })
+    /* @__PURE__ */ jsx5(Steps, { css: { "--steps-size": size }, children: Array.from({ length: size }, (_, index) => index + 1).map((step) => /* @__PURE__ */ jsx5(Step, { active: step <= currentStep }, step)) })
   ] });
 }
 MultiStep.displayName = "MultiStep";
+
+// src/components/DayCalendar/index.tsx
+import { format } from "date-fns";
+import ptBR from "date-fns/esm/locale/pt-BR/index.js";
+import { TooltipProvider, TooltipTrigger as TooltipTrigger2 } from "@radix-ui/react-tooltip";
+
+// src/components/DayCalendar/styles.ts
+import * as Tooltip from "@radix-ui/react-tooltip";
+var TooltipTrigger = styled(Tooltip.Trigger);
+var ToolTipProvider = styled(Tooltip.Provider);
+var ToolTipRoot = styled(Tooltip.Root);
+var ToolTipPortal = styled(Tooltip.Portal);
+var ToolTipContent = styled(Tooltip.Content, {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "$gray900",
+  fontFamily: "$default",
+  fontSize: "$md",
+  color: "$gray100",
+  borderRadius: 5,
+  minWidth: 219,
+  height: "$12"
+});
+var TooltipArrow = styled(Tooltip.Arrow, {
+  height: 10,
+  width: 10,
+  fill: "$gray900"
+});
+
+// src/components/DayCalendar/index.tsx
+import { jsx as jsx6, jsxs as jsxs5 } from "react/jsx-runtime";
+function DayCalendar({ date, isAvaliable }) {
+  const dateFormated = format(date, "d 'de' MMMM ", {
+    locale: ptBR
+  });
+  return /* @__PURE__ */ jsx6(TooltipProvider, { children: /* @__PURE__ */ jsxs5(ToolTipRoot, { delayDuration: 200, children: [
+    /* @__PURE__ */ jsx6(TooltipTrigger2, { asChild: true, children: /* @__PURE__ */ jsx6(CalendarButton, { isAvaliable, children: date.getDate() }) }),
+    /* @__PURE__ */ jsx6(ToolTipPortal, { children: /* @__PURE__ */ jsxs5(ToolTipContent, { children: [
+      /* @__PURE__ */ jsxs5("span", { children: [
+        dateFormated,
+        " -",
+        isAvaliable ? " dispon\xEDvel" : "indispon\xEDvel"
+      ] }),
+      /* @__PURE__ */ jsx6(TooltipArrow, {})
+    ] }) })
+  ] }) });
+}
 export {
   Avatar,
   Box,
   Button,
+  CalendarButton,
   Checkbox2 as Checkbox,
+  DayCalendar,
   Heading,
   MultiStep,
   Text,
   TextArea,
-  TextInput
+  TextInput,
+  Toast2 as Toast
 };
