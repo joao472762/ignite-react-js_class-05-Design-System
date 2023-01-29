@@ -1,0 +1,2 @@
+import{A as t}from"./index.7711a8e8.js";import"./index.af2e0396.js";import"./iframe.b18160c8.js";import"./index.0cdc69b9.js";import"./jsx-runtime.e6b60908.js";const e={title:"Data Display/Avatar",component:t,args:{src:"https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"},argTypes:{src:{control:{type:"text"}}}},c={},i={args:{src:void 0}},l=["Default","WithFallBack"];export{c as Default,i as WithFallBack,l as __namedExportsOrder,e as default};
+//# sourceMappingURL=Avatar.stories.7c63b490.js.map

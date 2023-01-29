@@ -1,0 +1,2 @@
+import{C as a}from"./index.7711a8e8.js";import"./index.af2e0396.js";import"./iframe.b18160c8.js";import"./index.0cdc69b9.js";import"./jsx-runtime.e6b60908.js";const i={title:"Surface/CalendarButton",component:a,args:{children:"20",isAvaliable:!1},argTypes:{isAvaliable:{type:"boolean"}}},s={},n={args:{isAvaliable:!0}},p=["Default","Avaliable"];export{n as Avaliable,s as Default,p as __namedExportsOrder,i as default};
+//# sourceMappingURL=CalendarButton.stories.5e15dc41.js.map
